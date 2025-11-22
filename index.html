@@ -3,73 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fancy English Fonts Generator</title>
-<style>
-body {
-  margin: 0;
-  padding: 20px;
-  overflow: hidden;
-  font-family: 'Courier Prime', monospace;
-  color: #fff;
-  text-align: center;
-}
-
-/* Canvas الخلفية */
-#matrixCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* تحت كل العناصر */
-}
-</style>
-
-<canvas id="matrixCanvas"></canvas>
-
-<script>
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789あいうえお漢字कखगשحظيабвгдеёжзθλμπσψ';
-const fontSize = 16;
-const columns = Math.floor(canvas.width / fontSize);
-const drops = Array(columns).fill(1);
-
-// تدرج لوني ديناميكي
-function getGradientColor(y) {
-  const hue = (Date.now() / 20 + y) % 360;
-  return `hsl(${hue}, 100%, 70%)`;
-}
-
-function draw() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)'; // لتأثير الذوبان
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.font = fontSize + 'px monospace';
-
-  for (let i = 0; i < drops.length; i++) {
-    const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillStyle = getGradientColor(drops[i] * fontSize);
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-      drops[i] = 0;
-    }
-    drops[i]++;
-  }
-}
-
-setInterval(draw, 50);
-</script>
-
+<title>Fancy English Fonts Generator – Generate Cool Text Styles</title>
+<meta name="description" content="Create fancy English fonts with cool effects, animated background, and sparkling stars. Copy your favorite style instantly!">
+<meta name="keywords" content="fancy fonts, text generator, stylish letters, animated background, cool fonts">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Orbitron&family=Roboto+Mono&family=Press+Start+2P&family=Luckiest+Guy&family=Permanent+Marker&family=Shadows+Into+Light&family=Indie+Flower&family=Righteous&family=Amatic+SC&family=Patrick+Hand&family=Varela+Round&family=Quicksand&family=Bangers&display=swap');
 
@@ -78,9 +14,8 @@ body {
   text-align: center;
   margin: 0;
   padding: 20px;
-  background: #000;
-  overflow-y: auto; /* تقدر تنزل بعجلة الفأرة */
   color: #fff;
+  overflow: hidden;
 }
 
 h1 {
@@ -123,6 +58,16 @@ input[type="text"] {
   box-shadow: 0 0 15px #0ff, 0 0 20px #f0f, 0 0 25px #ff4;
 }
 
+/* Canvas الخلفية */
+#matrixCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 /* نجوم متلألئة */
 .star {
   position: absolute;
@@ -142,80 +87,86 @@ input[type="text"] {
 <body>
 
 <h1>🎨 Fancy English Fonts Generator 🎨</h1>
-
 <input type="text" id="textInput" placeholder="Type your text here..." oninput="generate()">
-
 <div id="results"></div>
 
+<!-- Canvas الخلفية -->
+<canvas id="matrixCanvas"></canvas>
+
 <script>
-// 100 خط مزخرف للإنجليزية (50 قديمة + 50 جديدة)
+// ====== الخلفية المتحركة بالحروف ======
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789あいうえお漢字कखगשحظيабвгдеёжзθλμπσψ';
+const fontSize = 16;
+const columns = Math.floor(canvas.width / fontSize);
+const drops = Array(columns).fill(1);
+
+function getGradientColor(y) {
+  const hue = (Date.now() / 20 + y) % 360;
+  return `hsl(${hue}, 100%, 70%)`;
+}
+
+function draw() {
+  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = fontSize + 'px monospace';
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters[Math.floor(Math.random() * letters.length)];
+    ctx.fillStyle = getGradientColor(drops[i] * fontSize);
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+setInterval(draw, 50);
+
+// ====== نجوم متلألئة ======
+for(let i=0;i<100;i++){
+  const star = document.createElement('div');
+  star.className='star';
+  const size = Math.random()*3+1;
+  star.style.width = star.style.height=size+'px';
+  star.style.top=Math.random()*100+'%';
+  star.style.left=Math.random()*100+'%';
+  star.style.animationDuration=(Math.random()*3+1)+'s';
+  document.body.appendChild(star);
+}
+
+// ====== الخطوط المزخرفة ======
 const englishFancy = [
   t=>t,
   t=>t.toUpperCase(),
   t=>t.toLowerCase(),
   t=>t.split('').reverse().join(''),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D3A)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D49)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D3C)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D20)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D400)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D434)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D468)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D49C)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D4D0)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D504)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D538)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D56C)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D5A0)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D5D4)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D608)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D63C)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D670)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D6A4)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D6D8)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D70C)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D740)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D774)),
-  t=>t.replace(/[A-Za-z]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x1D7A8)),
   t=>t.replace(/[A-Za-z]/g,c=>c+'*'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'~'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'`'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'^'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'!'),
   t=>t.replace(/[A-Za-z]/g,c=>'★'+c+'★'),
   t=>t.replace(/[A-Za-z]/g,c=>'♡'+c+'♡'),
   t=>t.replace(/[A-Za-z]/g,c=>'✦'+c+'✦'),
-  t=>t.replace(/[A-Za-z]/g,c=>'❁'+c),
-  t=>t.replace(/[A-Za-z]/g,c=>'◌'+c+'◌'),
-  t=>t.replace(/[A-Za-z]/g,c=>'✧'+c+'✧'),
   t=>t.replace(/[A-Za-z]/g,c=>'🔥'+c+'🔥'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'̷'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'̴'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'̵'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'̶'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'̸'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'•'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'~'),
-  t=>t.replace(/[A-Za-z]/g,c=>c+'*'),
-  // 50 خطوط جديدة
   t=>t.replace(/[A-Za-z]/g,c=>'✪'+c+'✪'),
   t=>t.replace(/[A-Za-z]/g,c=>'✿'+c+'✿'),
-  t=>t.replace(/[A-Za-z]/g,c=>'✰'+c+'✰'),
   t=>t.replace(/[A-Za-z]/g,c=>'❀'+c+'❀'),
   t=>t.replace(/[A-Za-z]/g,c=>'☯'+c+'☯'),
   t=>t.replace(/[A-Za-z]/g,c=>'☀'+c+'☀'),
   t=>t.replace(/[A-Za-z]/g,c=>'☁'+c+'☁'),
   t=>t.replace(/[A-Za-z]/g,c=>'❝'+c+'❞'),
-  t=>t.replace(/[A-Za-z]/g,c=>'❞'+c+'❝'),
-  t=>t.replace(/[A-Za-z]/g,c=>'✪'+c+'✪'),
   t=>t.replace(/[A-Za-z]/g,c=>'✧'+c+'✧'),
-  t=>t.replace(/[A-Za-z]/g,c=>'✦'+c+'✦'),
-  t=>t.replace(/[A-Za-z]/g,c=>'★'+c+'★'),
   t=>t.replace(/[A-Za-z]/g,c=>'☆'+c+'☆'),
-  t=>t.replace(/[A-Za-z]/g,c=>'☯'+c+'☯'),
   t=>t.replace(/[A-Za-z]/g,c=>'☮'+c+'☮'),
-  t=>t.replace(/[A-Za-z]/g,c=>'☾'+c+'☽'),
-  t=>t.replace(/[A-Za-z]/g,c=>'☼'+c+'☼'),
   t=>t.replace(/[A-Za-z]/g,c=>'♛'+c+'♛'),
   t=>t.replace(/[A-Za-z]/g,c=>'♚'+c+'♚'),
   t=>t.replace(/[A-Za-z]/g,c=>'✌'+c+'✌'),
@@ -224,8 +175,7 @@ const englishFancy = [
   t=>t.replace(/[A-Za-z]/g,c=>'♣'+c+'♣'),
   t=>t.replace(/[A-Za-z]/g,c=>'♥'+c+'♥'),
   t=>t.replace(/[A-Za-z]/g,c=>'♦'+c+'♦'),
-  t=>t.replace(/[A-Za-z]/g,c=>'✎'+c+'✎'),
-  t=>t.replace(/[A-Za-z]/g,c=>'☯'+c+'☯')
+  t=>t.replace(/[A-Za-z]/g,c=>'✎'+c+'✎')
 ];
 
 const fonts = [
@@ -259,23 +209,9 @@ function generate() {
   });
 }
 
-// توليد نجوم متلألئة
-for(let i=0;i<100;i++){
-  const star = document.createElement('div');
-  star.className='star';
-  const size = Math.random()*3+1;
-  star.style.width = star.style.height=size+'px';
-  star.style.top=Math.random()*100+'%';
-  star.style.left=Math.random()*100+'%';
-  star.style.animationDuration=(Math.random()*3+1)+'s';
-  document.body.appendChild(star);
-}
-
 // توليد افتراضي
 generate();
 </script>
 
 </body>
 </html>
-
-
